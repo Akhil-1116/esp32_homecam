@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home CCTV Live Feed</title>
+  <style>
+    body { font-family: Arial; text-align: center; background:#0e1111; color:white; }
+    img { border:3px solid #00bcd4; border-radius:5px; margin:10px; }
+    button { padding:10px 20px; font-size:16px; cursor:pointer; margin-top:10px; background:#00bcd4; border:none; border-radius:5px; color:white;}
+  </style>
+</head>
+<body>
+  <h1>🏠 Home CCTV Live Feed</h1>
+  <img src="{{ url_for('video_feed') }}" width="640" height="480">
+  <br>
+  <form action="{{ url_for('pre_recordings') }}">
+    <button type="submit">Show Pre-recordings</button>
+  </form>
+</body>
+</html>

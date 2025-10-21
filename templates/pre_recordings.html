@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pre-recorded Frames</title>
+  <style>
+    body { font-family: Arial; text-align:center; background:#0e1111; color:white; }
+    .gallery { display:flex; flex-wrap:wrap; justify-content:center; }
+    .frame-card { margin:10px; text-align:center; }
+    img { border:2px solid #00bcd4; border-radius:5px; margin-bottom:5px; }
+    .date { font-size:18px; color:#00ff99; margin-top:20px; }
+    .timestamp { font-size:14px; color:#ffcc00; }
+    button { padding:8px 16px; margin:5px; font-size:14px; cursor:pointer; background:#00bcd4; border:none; border-radius:5px; color:white;}
+    a { text-decoration:none; }
+  </style>
+</head>
+<body>
+  <h1>📁 Pre-recorded Frames</h1>
+  <a href="{{ url_for('index') }}"><button>Back to Live Feed</button></a>
+
+  <!-- Filter Form -->
+  <form method="get" action="{{ url_for('pre_recordings') }}" style="margin-bottom:20px;">
+      <label for="date">Date:</label>
+      <input type="date" name="date" id="date" value="{{ filter_date or '' }}">
+
+      <label for="hour">Hour (0-23):</label>
+      <input type="number" name="hour" id="hour" min="0" max="23" value="{{ filter_hour or '' }}">
+
+      <button type="submit">Filter</button>
+      <a href="{{ url_for('pre_recordings') }}"><button type="button">Reset</button></a>
+  </form>
+
+  {% for date, frames in date_dict.items() %}
+    <div class="date">{{ date }}</div>
+    <div class="gallery">
+      {% for frame in frames %}
+        <div class="frame-card">
+          {% if frame.image %}
+            <img src="data:image/jpeg;base64,{{ frame.image }}" width="320">
+          {% else %}
+            <div style="color:red;">Image not found</div>
+          {% endif %}
+          <div class="timestamp">{{ frame.timestamp.strftime("%Y-%m-%d %H:%M:%S") }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+  <!-- Pagination -->
+  <div style="margin-top:20px;">
+    {% if page > 1 %}
+      <a href="{{ url_for('pre_recordings', page=page-1, date=filter_date, hour=filter_hour) }}"><button>Previous</button></a>
+    {% endif %}
+    Page {{ page }} of {{ total_pages }}
+    {% if page < total_pages %}
+      <a href="{{ url_for('pre_recordings', page=page+1, date=filter_date, hour=filter_hour) }}"><button>Next</button></a>
+    {% endif %}
+  </div>
+</body>
+</html>
