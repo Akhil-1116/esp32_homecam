@@ -5,6 +5,9 @@ import numpy as np
 import base64
 import math
 from datetime import datetime
+import pytz
+ist = pytz.timezone('Asia/Kolkata')
+
 import os
 app = Flask(__name__)
 # MongoDB Atlas
@@ -52,7 +55,7 @@ def upload():
 
     # Save new frame
     mongo.db.frames.insert_one({
-        "timestamp": datetime.now(),
+        "timestamp": datetime.now(ist),
         "image": img_b64
     })
     return "OK", 200
@@ -82,7 +85,7 @@ def pre_recordings():
 
     query = {}
     if filter_date:
-        date_start = datetime.strptime(filter_date, "%Y-%m-%d")
+        date_start = ist.datetime.strptime(filter_date, "%Y-%m-%d")
         date_end = date_start.replace(hour=23, minute=59, second=59)
         query['timestamp'] = {"$gte": date_start, "$lte": date_end}
 
