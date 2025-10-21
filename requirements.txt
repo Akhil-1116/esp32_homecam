@@ -1,8 +1,8 @@
-Flask==2.3.3
-Flask-PyMongo==2.3.0
-pymongo==4.6.0
-opencv-python-headless==4.8.1.78
-numpy==1.25.2
-pytz==2025.10
-
-
+setuptools>=68.0.0
+wheel>=0.40.0
+Flask>=2.3.3
+flask-pymongo>=2.3.0
+pymongo>=4.3.0
+numpy>=1.25.2
+opencv-python-headless>=4.8.1.78
+pytz>=2025.10
