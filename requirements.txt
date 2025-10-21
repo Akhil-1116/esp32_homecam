@@ -5,4 +5,5 @@ flask-pymongo>=2.3.0
 pymongo>=4.3.0
 numpy>=1.25.2
 opencv-python-headless>=4.8.1.78
-pytz>=2025.10
+pytz>=2025.1
+
